@@ -1,9 +1,7 @@
 ---
-title: Regression Models - Quiz 01
+title: "Regression Models - Quiz 01"
 author: "Utkarsh Ashok Pathrabe"
-output:
-  md_document:
-    variant: markdown_github
+output: md_document
 ---
 
 Quiz 01
