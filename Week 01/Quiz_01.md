@@ -20,7 +20,7 @@ And weights given by:
 w <- c(2, 1, 3, 1)
 ```
 
-Give the value of \(\(\mu\)\) that minimizes the least squares equation \(\(\sum_{i=1}^n w_i (x_i - \mu)^2\)\)
+Give the value of ( ) that minimizes the least squares equation ( \_{i=1}^n w\_i (x\_i - )^2 )
 
 ### Answer
 
@@ -214,7 +214,7 @@ mean(x)
 Question 10
 -----------
 
-Let the slope having fit Y as the outcome and X as the predictor be denoted as \(\(\beta_1 \)\). Let the slope from fitting X as the outcome and Y as the predictor be denoted as \(\(\gamma_1 \)\). Suppose that you divide \(\(\beta_1 \)\) by \(\(\gamma_1 \)\), in other words consider \(\(\beta_1 / \gamma_1\)\). What is this ratio always equal to?
+Let the slope having fit Y as the outcome and X as the predictor be denoted as ( \_1 ). Let the slope from fitting X as the outcome and Y as the predictor be denoted as ( \_1 ). Suppose that you divide ( \_1 ) by ( \_1 ), in other words consider ( \_1 / \_1 ). What is this ratio always equal to?
 
 ### Answer
 
