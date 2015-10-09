@@ -1,0 +1,145 @@
+---
+title: "Regression Models - Quiz 02"
+author: "Utkarsh Ashok Pathrabe"
+output: md_document
+---
+
+Quiz 02
+=======  
+
+|Attempts|Score|  
+|:------:|:---:|  
+|   1/3  |10/10|  
+
+Question 01
+-----------  
+Consider the following data with x as the predictor and y as as the outcome.  
+```{r warning=FALSE, error=FALSE}
+x <- c(0.61, 0.93, 0.83, 0.35, 0.54, 0.16, 0.91, 0.62, 0.62)
+y <- c(0.67, 0.84, 0.6, 0.18, 0.85, 0.47, 1.1, 0.65, 0.36)
+```  
+Give a P-value for the two sided hypothesis test of whether $\beta_1$ from a linear regression model is 0 or not.  
+
+### Answer  
+0.05296  
+
+#### Explanation  
+```{r warning=FALSE, error=FALSE}
+f <- lm(y ~ x)
+summary(f)
+```  
+
+Question 02
+-----------  
+Consider the previous problem, give the estimate of the residual standard deviation.  
+
+### Answer  
+0.223  
+
+#### Explanation  
+```{r warning=FALSE, error=FALSE}
+summary(f)
+```  
+
+Question 03  
+-----------  
+In the `mtcars` data set, fit a linear regression model of weight (predictor) on mpg (outcome). Get a 95% confidence interval for the expected mpg at the average weight. What is the lower endpoint?  
+
+### Answer  
+18.991  
+
+#### Explanation  
+```{r warning=FALSE, error=FALSE}
+data(mtcars)
+x <- mtcars$wt
+y <- mtcars$mpg
+fit <- lm(y ~ x)
+predict(fit, data.frame(x = mean(x)), interval = "confidence")
+```
+
+Question 04
+-----------  
+Refer to the previous question. Read the help file for `mtcars`. What is the weight coefficient interpreted as?  
+
+### Answer  
+The estimated expected change in mpg per 1,000 lb increase in weight.  
+
+#### Explanation  
+```{r warning=FALSE, error=FALSE, eval=FALSE}
+help(mtcars)
+```
+
+Question 05
+-----------  
+Consider again the `mtcars` data set and a linear regression model with mpg as predicted by weight (1,000 lbs). A new car is coming weighing 3000 pounds. Construct a 95% prediction interval for its mpg. What is the upper endpoint?  
+
+### Answer  
+27.57  
+
+#### Explanation  
+```{r warning=FALSE, error=FALSE}
+predict(fit, data.frame(x = mean(3)), interval = "prediction")
+```  
+
+Question 06
+-----------  
+Consider again the `mtcars` data set and a linear regression model with mpg as predicted by weight (in 1,000 lbs). A "short" ton is defined as 2,000 lbs. Construct a 95% confidence interval for the expected change in mpg per 1 short ton increase in weight. Give the lower endpoint.
+
+### Answer  
+-12.973  
+
+#### Explanation  
+```{r warning=FALSE, error=FALSE}
+fit2 <- lm(y ~ I(x / 2))
+tbl2 <- summary(fit2)$coefficients
+mean <- tbl2[2,1]      
+se <- tbl2[2,2] 
+df <- fit2$df
+#Two sides T-Test
+mean + c(-1,1) * qt(0.975, df = df) * se
+```  
+
+Question 07
+-----------  
+If my X from a linear regression is measured in centimeters and I convert it to meters what would happen to the slope coefficient?  
+
+### Answer  
+It would get multiplied by 100.  
+
+#### Explanation  
+```{r warning=FALSE, error=FALSE}
+summary(fit)$coefficients[2, 1]
+fit3 <- lm(y ~ I(x / 100))
+summary(fit3)$coefficients[2, 1]
+```  
+
+Question 08
+-----------  
+I have an outcome, $Y$, and a predictor, $X$ and fit a linear regression model with $Y = \beta_0 + \beta_1 X  + \epsilon$ to obtain $\hat \beta_0$ and $\hat \beta_1$. What would be the consequence to the subsequent slope and intercept if I were to refit the model with a new regressor, $X + c$ for some constant, $c$?  
+
+### Answer  
+The new intercept would be $\hat \beta_0 - c \hat \beta_1$.  
+
+Question 09
+-----------  
+Refer back to the mtcars data set with mpg as an outcome and weight (wt) as the predictor. About what is the ratio of the
+the sum of the squared errors, \(\sum_{i=1}^n (Y_i - \hat Y_i)^2\) when comparing a model with just an intercept (denominator) to
+the model with the intercept and slope (numerator)?  
+
+### Answer  
+0.25  
+
+#### Explanation  
+```{r warning=FALSE, error=FALSE}
+fitRes <- fit$residuals ^ 2
+fitIntercept <- lm(mpg ~ 1, mtcars)
+fitInterceptRes <- fitIntercept$residuals ^ 2
+sum(fitRes) /sum(fitInterceptRes)
+```  
+
+Question 10
+-----------  
+Do the residuals always have to sum to 0 in linear regression?  
+
+### Answer  
+If an intercept is included, then they will sum to 0.  
